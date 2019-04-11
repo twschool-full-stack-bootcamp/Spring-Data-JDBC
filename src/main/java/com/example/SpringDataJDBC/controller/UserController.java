@@ -4,6 +4,8 @@ import com.example.SpringDataJDBC.UserRepository;
 import com.example.SpringDataJDBC.entity.User;
 import com.example.SpringDataJDBC.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -32,9 +34,9 @@ public class UserController {
     }
 
     @PostMapping(value = "/users",produces = {"application/json"})
-    public User saveUser(@RequestBody User user) {
-
-        return userService.saveUser(user);
+    public ResponseEntity saveUser(@RequestBody User user) {
+        userService.saveUser(user);
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
     @PutMapping(value = "/users/{id}")
@@ -44,8 +46,9 @@ public class UserController {
     }
 
     @DeleteMapping(value = "/users/{id}")
-    public User deleteUser(@PathVariable("id") Long id) {
-        return userService.deleteUser(id);
+    public ResponseEntity deleteUser(@PathVariable("id") Long id) {
+         userService.deleteUser(id);
+         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
 }

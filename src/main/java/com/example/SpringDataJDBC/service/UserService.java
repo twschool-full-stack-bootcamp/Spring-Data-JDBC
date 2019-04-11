@@ -24,18 +24,12 @@ public class UserService {
         .orElseThrow(() -> new UserNotFoundException("User not found with username : " + username));
   }
 
-  public User deleteUser(long id){
-    return userRepository
-        .findById(id)
-        .map(u -> {
-          userRepository.deleteById(id);
-          return u;
-        })
-        .orElseThrow(() -> new UserNotFoundException("User not found with id : " + id));
+  public void deleteUser(long id){
+    userRepository.deleteById(id);
   }
 
-  public User saveUser(User user){
-    return userRepository.store(user);
+  public void saveUser(User user){
+    userRepository.store(user);
   }
 
   public User updateUser(User user, long id){

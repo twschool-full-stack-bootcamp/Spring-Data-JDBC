@@ -1,27 +1,22 @@
 package com.example.SpringDataJDBC;
 
 
-import com.example.SpringDataJDBC.controller.UserController;
 import com.example.SpringDataJDBC.entity.User;
-import com.example.SpringDataJDBC.service.UserService;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -31,41 +26,25 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @SpringBootTest
 @AutoConfigureMockMvc
 @ExtendWith(SpringExtension.class)
-public class userControllerTest {
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 
-  @Autowired
-  private UserController userController;
+public class userControllerTest {
 
   @Autowired
   private MockMvc mockMvc;
 
-  @MockBean
-  private UserService userService;
-
   @Test
-  public void getAllUser() throws Exception {
-    List<User> userList = new ArrayList<>();
-    User user1 = new User((long) 0, "aaa", "@aaa");
-    User user2 = new User((long) 1, "bbb", "@bbb");
-    userList.add(user1);
-    userList.add(user2);
-
-    when(userService.findAll()).thenReturn(userList);
-
+  public void a_get_all_user() throws Exception {
     ResultActions result = mockMvc.perform(get("/users"));
 
     result.andExpect(status().isOk())
         .andDo(print())
-        .andExpect(jsonPath("$.length()").value(2))
+//        .andExpect(jsonPath("$.length()").value(2))
         .andReturn().getResponse().getContentAsString();
   }
 
   @Test
-  public void getUserByUsername() throws Exception {
-
-    User user1 = new User((long) 0, "aaa", "@aaa");
-    when(userService.getUserByUsername("@aaa")).thenReturn(user1);
-
+  public void b_get_user_by_username() throws Exception {
     ResultActions result = mockMvc.perform(
         get("/findUsers")
             .param("username", "@aaa")
@@ -79,27 +58,18 @@ public class userControllerTest {
   }
 
   @Test
-  public void deleteUser() throws Exception {
-
-    User user = new User((long) 1, "bbb", "@bbb");
-    when(userService.deleteUser(1)).thenReturn(user);
-
+  public void c_delete_user() throws Exception {
     ResultActions result = mockMvc.perform(
         delete("/users/{id}", "1")
     );
 
-    result.andExpect(status().isOk())
+    result.andExpect(status().isNoContent())
         .andDo(print())
-        .andExpect(jsonPath("$.id").value(1))
-        .andExpect(jsonPath("$.name").value("bbb"))
         .andReturn().getResponse().getContentAsString();
   }
 
   @Test
-  public void saveUser() throws Exception {
-
-    User user = new User((long) 2, "ccc", "@ccc");
-    when(userService.saveUser(user)).thenReturn(user);
+  public void d_save_user() throws Exception {
 
     ResultActions result = mockMvc.perform(
         post("/users")
@@ -109,7 +79,7 @@ public class userControllerTest {
 
     );
 
-    result.andExpect(status().isOk())
+    result.andExpect(status().isNoContent())
         .andDo(print())
         .andReturn().getResponse().getContentAsString();
   }
@@ -126,10 +96,8 @@ public class userControllerTest {
   }
 
   @Test
-  public void updateUser() throws Exception {
-    User user = new User((long) 0, "aaa", "@aaa");
+  public void e_update_user() throws Exception {
     User user1 = new User((long) 0, "a", "@aaa");
-    when(userService.updateUser(user, 0)).thenReturn(user1);
 
     ResultActions result = mockMvc.perform(
         put("/users/{id}", 0)
