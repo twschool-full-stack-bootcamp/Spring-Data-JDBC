@@ -1,4 +1,4 @@
-package com.example.SpringDataJDBC;
+package com.example.SpringDataJDBC.entity;
 
 public class User {
 
