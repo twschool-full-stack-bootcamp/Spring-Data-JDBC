@@ -1,8 +1,8 @@
 ## Spring Data JDBC 练习
 
 ### 练习描述
-- 编写UserRepository文件，完成对User类的CURD操作
-- 使用postman对接口进行测试，如选择操作的结果为：
+- 编写UserRepository文件，完成所需接口
+- 可使用postman对接口进行测试，如选择操作的结果为：
 ![](example.jpg)
 - 运行./gradlew test 通过所有测试
 
