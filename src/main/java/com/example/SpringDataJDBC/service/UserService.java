@@ -28,10 +28,6 @@ public class UserService {
     userRepository.deleteById(id);
   }
 
-  public void saveUser(User user){
-    userRepository.store(user);
-  }
-
   public User updateUser(User user, long id){
     return userRepository
         .findById(id)

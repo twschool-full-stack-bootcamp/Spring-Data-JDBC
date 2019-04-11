@@ -39,7 +39,7 @@ public class userControllerTest {
 
     result.andExpect(status().isOk())
         .andDo(print())
-//        .andExpect(jsonPath("$.length()").value(2))
+        .andExpect(jsonPath("$.length()").value(2))
         .andReturn().getResponse().getContentAsString();
   }
 
@@ -63,25 +63,7 @@ public class userControllerTest {
         delete("/users/{id}", "1")
     );
 
-    result.andExpect(status().isNoContent())
-        .andDo(print())
-        .andReturn().getResponse().getContentAsString();
-  }
-
-  @Test
-  public void d_save_user() throws Exception {
-
-    ResultActions result = mockMvc.perform(
-        post("/users")
-            .content(asJsonString(new User((long) 2, "ccc", "@ccc")))
-            .contentType(MediaType.APPLICATION_JSON)
-            .accept(MediaType.APPLICATION_JSON)
-
-    );
-
-    result.andExpect(status().isNoContent())
-        .andDo(print())
-        .andReturn().getResponse().getContentAsString();
+    result.andExpect(status().isNoContent());
   }
 
 

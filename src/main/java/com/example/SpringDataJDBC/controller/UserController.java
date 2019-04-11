@@ -33,12 +33,6 @@ public class UserController {
         return userService.getUserByUsername(username);
     }
 
-    @PostMapping(value = "/users",produces = {"application/json"})
-    public ResponseEntity saveUser(@RequestBody User user) {
-        userService.saveUser(user);
-        return new ResponseEntity(HttpStatus.NO_CONTENT);
-    }
-
     @PutMapping(value = "/users/{id}")
     public User updateUser(@RequestBody User user, @PathVariable Long id) {
          return userService.updateUser(user,id);
