@@ -47,13 +47,13 @@ public class userControllerTest {
   public void b_get_user_by_username() throws Exception {
     ResultActions result = mockMvc.perform(
         get("/findUsers")
-            .param("username", "@aaa")
+            .param("username", "@xiaoming")
     );
 
     result.andExpect(status().isOk())
         .andDo(print())
         .andExpect(jsonPath("$.id").value(0))
-        .andExpect(jsonPath("$.name").value("aaa"))
+        .andExpect(jsonPath("$.name").value("小明"))
         .andReturn().getResponse().getContentAsString();
   }
 
@@ -79,7 +79,7 @@ public class userControllerTest {
 
   @Test
   public void e_update_user() throws Exception {
-    User user1 = new User((long) 0, "a", "@aaa");
+    User user1 = new User((long) 0, "小刚", "@xiaogang");
 
     ResultActions result = mockMvc.perform(
         put("/users/{id}", 0)
