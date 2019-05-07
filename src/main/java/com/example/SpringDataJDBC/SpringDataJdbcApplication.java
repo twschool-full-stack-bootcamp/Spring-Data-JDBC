@@ -27,9 +27,9 @@ public class SpringDataJdbcApplication {
 
 			log.info("Insert Data");
 			jdbcTemplate.execute("INSERT INTO users (name, username) VALUES " +
-					" ('aaa', '@aaa');");
+					" ('小明', '@xiaoming');");
 			jdbcTemplate.execute("INSERT INTO users (name, username) VALUES " +
-					" ('bbb', '@bbb');");
+					" ('小红', '@xiaohong');");
 		};
 	}
 
